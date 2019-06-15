@@ -1,6 +1,6 @@
 extends layout
 block content
-	form(class="login-block" action="/users" method="post")
+	form(class="login-block" action="/api/login" method="post")
 		div(class="login-block__input-wrapper login-block__login-wrapper")
 			h3(class="login-block__login-title") Логин:
 			input(type="name" class="login-block__login" name="login")
