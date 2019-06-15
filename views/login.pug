@@ -1,2 +1,10 @@
 extends layout
 block content
+	form(class="login-block" action="/users" method="post")
+		div(class="login-block__input-wrapper login-block__login-wrapper")
+			h3(class="login-block__login-title") Логин:
+			input(type="name" class="login-block__login" name="login")
+		div(class="login-block__input-wrapper login-block__password-wrapper")
+			h3(class="login-block__password-title") Пароль:
+			input(type="password" class="login-block__password" name="password")
+		button(type="submit" class="login-block__submit-button") Войти
