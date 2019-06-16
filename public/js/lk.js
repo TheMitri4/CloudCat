@@ -24,7 +24,7 @@ registerPopupSendButton.addEventListener('click', function(){
 	}
 
 	let xhr = new XMLHttpRequest();
-	xhr.open('POST', '/register/user', true);
+	xhr.open('POST', '/api/register/user', true);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	let body = 'login=' + login;
 	this.disabled = true;
