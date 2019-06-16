@@ -101,21 +101,49 @@ a {
 	margin-bottom: 32px;
 }
 
+/* Попап регистриации сотрудника */
+
+.login-block--register-popup__wrapper{
+	position: fixed;
+	width: 100%;
+	height: 100vh;
+	top: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+.login-block--register-popup{
+	padding-top: 55px;
+	margin: 0;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.login-block__title--register-popup{
+	margin-bottom: 52px;
+}
+
+.login-block__submit-button--register-popup{
+	margin: 0 auto;
+}
+
 /* Личный кабинет */
 
-.main{
+.lk{
 	display: flex;
 	justify-content: center;
 }
 
-.main__left{
+.lk__left{
 	background-color: #fff;
 	width: 875px;
 	margin-right: 15px;
 	border-radius: 10px 0 0 10px;
 }
 
-.main__right{
+.lk__right{
 	width: 430px;
 	display: flex;
 	flex-direction: column;
@@ -219,6 +247,10 @@ a {
 	padding: 20px;
 }
 
+.lk-button:focus{
+	outline: none;
+}
+
 .lk-button--new-user{
 	margin-bottom: 15px;
 	color: #B8E66D;
@@ -227,4 +259,10 @@ a {
 .lk-button--logout{
 	color: #EF4949;
 	border-radius: 0 0 10px 0;
+}
+
+/* Вспомогательный класс для скрытия элементов */
+
+.hidden{
+	display: none;
 }
