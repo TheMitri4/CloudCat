@@ -31,9 +31,26 @@ class SqlInitData {
 
 // SQL DATA объект для передачи ответа sql.login
 class SqlLoginData {
+    constructor(login, token, enterprise){
+        this.login = login;
+        this.token = token;
+        this.enterprise = enterprise;
+    }
+}
+
+// SQL DATA объект для передачи ответа sql.registerAdmin
+class SqlRegisterAdminData {
     constructor(login, token){
         this.login = login;
         this.token = token;
+    }
+}
+
+// SQL DATA объект для передачи ответа sql.registerAdmin
+class SqlRegisterUserData {
+    constructor(login, password){
+        this.login = login;
+        this.password = password;
     }
 }
 
@@ -44,6 +61,8 @@ let Objects = {
     SqlInitData: SqlInitData,
     SqlLoginData: SqlLoginData,
     Message: Message,
+    SqlRegisterAdminData: SqlRegisterAdminData,
+    SqlRegisterUserData: SqlRegisterUserData
 }
 
 module.exports = Objects;
