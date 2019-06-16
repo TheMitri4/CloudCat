@@ -20,12 +20,12 @@ router.post('/login', function(req, res, next) {
 		}
 	}
 	rp(options)
-		.then(function(result){
-			res.send(result);
-		})
 		.catch(function(err){
 			console.log(err);
 			res.send('Ошибка');
+		})
+		.then(function(result){
+			res.send(result);
 		})
 });
 
