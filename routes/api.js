@@ -16,7 +16,7 @@ router.post('/login', function(req, res, next) {
 			if(sqlResponse.status == 200){
 				var response = sqlResponse;
 			}else{
-				var response = sqlResponse;
+				var response = new Objects.Error2(sqlResponse.status, sqlResponse.message);
 			}
 			res.send(response);
 		})
@@ -42,7 +42,7 @@ router.post('/register/user', function(req, res, next) {
 			if(sqlResponse.status == 200){
 				var response = sqlResponse;
 			}else{
-				var response = sqlResponse;
+				var response = new Objects.Error2(sqlResponse.status, sqlResponse.message);
 			}
 			res.send(response);
 		})

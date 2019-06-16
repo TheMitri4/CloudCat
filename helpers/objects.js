@@ -31,9 +31,10 @@ class SqlInitData {
 
 // SQL DATA объект для передачи ответа sql.login
 class SqlLoginData {
-    constructor(login, token){
+    constructor(login, token, enterprise){
         this.login = login;
         this.token = token;
+        this.enterprise = enterprise;
     }
 }
 
