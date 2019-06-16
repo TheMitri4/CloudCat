@@ -1,0 +1,9 @@
+extends layout
+block content
+	form(class="login-block" action="/login" method="post")
+		h1(class="login-block__title") Регистрация
+		input(type="name" class="login-block__login login-block__input login-block__input--registration" name="login" placeholder="ФИО")
+		input(type="name" class="login-block__login login-block__input login-block__input--registration" name="login" placeholder="Имя пользователя")
+		input(type="password" class="login-block__password login-block__input login-block__input--registration" name="password" placeholder="Пароль")
+		input(type="name" class="login-block__login login-block__input login-block__input--registration" name="enterprise" placeholder="Название предприятия")
+		button(type="submit" class="login-block__submit-button login-block__submit-button--register") Регистрация

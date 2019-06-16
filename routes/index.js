@@ -7,6 +7,12 @@ router.get('/', function(req, res, next) {
 	res.render('login', { title: 'Express' });
 });
 
+// форма регистрации
+
+router.get('/register', function(req, res, next) {
+	res.render('register');
+});
+
 // авторизация пользователя
 
 router.post('/login', function(req, res, next) {
@@ -33,6 +39,10 @@ router.post('/login', function(req, res, next) {
 
 router.get('/main-page', function(req, res, next) {
 	res.render('main-page', { login: 'Express' });
+});
+
+router.get('/lk', function(req, res, next) {
+	res.render('lk', { courses: [{ name: 'Глава 6', content: 'Привет, меня зовут контент, и я тут не просто так!'}] } );
 });
 
 module.exports = router;
