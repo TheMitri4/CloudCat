@@ -19,7 +19,7 @@ router.post('/login', function(req, res, next) {
 	console.log(req.body);
 	let options = {
 		method: 'POST',
-		uri: 'http://localhost:3000/api/login',
+		uri: 'https://cloud-cat.herokuapp.com/api/login',
 		form: {
 			login: req.body.login,
 			password: req.body.password
@@ -72,7 +72,7 @@ router.get('/lk', function(req, res, next) {
 	// Получение списка курсов
 	var options = {
 		method: 'POST',
-		uri: 'http://localhost:3000/api/courses',
+		uri: 'https://cloud-cat.herokuapp.com/api/courses',
 		body: {
 			token: req.cookies.token
 		},
@@ -103,7 +103,7 @@ router.get('/lk', function(req, res, next) {
 	// Получение даных о пользовтаеле
 	// options = {
 	// 	method: 'POST',
-	// 	uri: 'http://localhost:3000/api/userinfo',
+	// 	uri: 'https://cloud-cat.herokuapp.com/api/userinfo',
 	// 	body: {
 	// 		token: req.cookies.token
 	// 	}
