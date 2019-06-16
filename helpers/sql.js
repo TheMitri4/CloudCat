@@ -127,7 +127,7 @@ var sql = {
                         {
                             db.all(`SELECT * FROM courses WHERE enterprise = '${row.enterprise}'`, [], function(err, rowss){
                                 console.log(JSON.stringify(rowss));
-                                let response = new Objects.Response(200, "Courses DATA", new Objects.SqlCoursesData(rowss));
+                                let response = new Objects.Response(200, "Courses DATA", new Objects.SqlCoursesData(JSON.stringify(rowss)));
                                 resolve(response);
                             });
                         }
@@ -240,7 +240,7 @@ var sql = {
                     initResponse.data.db.get(`SELECT * FROM users WHERE token = '${token}'`, [], function(err, row){
                         if(row)
                         {
-                            let response = new Objects.Response(200, "Userifno DATA OK", new Objects.SqlUserInfo(row.login, row.fname, row.lname, row.enterprise));
+                            let response = new Objects.Response(200, "Userifno DATA OK", new Objects.SqlUserInfo(row.login, row.fname, row.lname, row.enterprise, row.isAdmin));
                             resolve(response);
                         }
                         else{

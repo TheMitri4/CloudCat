@@ -32,7 +32,7 @@ router.post('/login', function(req, res, next) {
 				res.cookie("login", apiResponse.data.login);
 				res.cookie("token", apiResponse.data.token);
 				res.cookie("enterprise", apiResponse.data.enterprise);
-				res.redirect("/main-page");
+				res.redirect("/lk");
 			}
 			else if(apiResponse.status === 403){
 				res.cookie("error_message", apiResponse.message);
@@ -64,7 +64,80 @@ router.get('/main-page', function(req, res, next) {
 });
 
 router.get('/lk', function(req, res, next) {
-	res.render('lk', { courses: [{ name: 'Глава 6', content: 'Привет, меня зовут контент, и я тут не просто так!'}] } );
+	var courses;
+	var userinfo;
+
+	console.log("//////////lk")
+
+	// Получение списка курсов
+	var options = {
+		method: 'POST',
+		uri: 'http://localhost:3000/api/courses',
+		body: {
+			token: req.cookies.token
+		},
+		json: true
+	}
+	rp(options)
+		.then(function(result){
+			console.log(result);
+			if(result.status === 200){
+				result.data.courses = JSON.parse(result.data.courses);
+				courses = result.data.courses;
+				console.log("ROUTES COURSES" + JSON.stringify(courses))
+			}
+			else{
+				res.cookie("error_message", "Необработанная ошибка, статус " + result.status);
+				res.redirect("/error");
+			}
+		})
+		.catch(function(err){
+			// console.log(err);
+			res.send('Ошибка');
+		})
+		.then(() => {
+			res.render("lk", { courses: courses, userinfo: userinfo});
+		})
+
+
+	// Получение даных о пользовтаеле
+	// options = {
+	// 	method: 'POST',
+	// 	uri: 'http://localhost:3000/api/userinfo',
+	// 	body: {
+	// 		token: req.cookies.token
+	// 	}
+	// }
+	// rp(options)
+	// 	.then(function(result){
+	// 		// // let apiResponse = JSON.parse(result);
+	// 		// if(result.status === 200){
+	// 		// 	userinfo.login = result.data.login;
+	// 		// 	userinfo.fname = result.data.fname;
+	// 		// 	userinfo.lname = result.data.lname;
+	// 		// 	userinfo.enterprise = result.data.enterprise;
+	// 		// 	userinfo.isAdmin = result.data.isAdmin;
+	// 		// 	console.log("ROUTES userinfo" + JSON.stringify(userinfo))
+	// 		// }
+	// 		// else{
+	// 		// 	res.cookie("error_message", "Необработанная ошибка, статус " + apiResponse.status);
+	// 		// 	res.redirect("/error");
+	// 		// }
+	// 	})
+	// 	.catch(function(err){
+	// 		// console.log(err);
+	// 		// res.send('Ошибка');
+	// 	})
+		// .then(() => {
+		// 	// res.render("lk", { courses: courses, userinfo: userinfo});
+		// })
+
+
+
+
+
+
+	// res.render('lk', { courses: [{ name: 'Глава 6', content: 'Привет, меня зовут контент, и я тут не просто так!'}] } );
 });
 
 module.exports = router;

@@ -70,11 +70,12 @@ class SqlCourseData {
 
 // SQL DATA userinfo
 class SqlUserInfo {
-    constructor(login, fname, lname, enterprise){
+    constructor(login, fname, lname, enterprise, isAdmin){
         this.login = login;
         this.fname = fname;
         this.lname = lname;
         this.enterprise = enterprise;
+        this.isAdmin = isAdmin;
     }
 }
 
