@@ -54,6 +54,31 @@ class SqlRegisterUserData {
     }
 }
 
+// SQL DATA объект для массива курсов по предприятию
+class SqlCoursesData {
+    constructor(courses){
+        this.courses = courses;
+    }
+}
+
+// SQL DATA объект для 1 курса по предприятию
+class SqlCourseData {
+    constructor(course){
+        this.course = course;
+    }
+}
+
+// SQL DATA userinfo
+class SqlUserInfo {
+    constructor(login, fname, lname, enterprise){
+        this.login = login;
+        this.fname = fname;
+        this.lname = lname;
+        this.enterprise = enterprise;
+    }
+}
+
+
 // Для экспорта
 let Objects = {
     Response: Response,
@@ -62,7 +87,10 @@ let Objects = {
     SqlLoginData: SqlLoginData,
     Message: Message,
     SqlRegisterAdminData: SqlRegisterAdminData,
-    SqlRegisterUserData: SqlRegisterUserData
+    SqlRegisterUserData: SqlRegisterUserData,
+    SqlCoursesData: SqlCoursesData,
+    SqlCourseData: SqlCourseData,
+    SqlUserInfo: SqlUserInfo
 }
 
 module.exports = Objects;
