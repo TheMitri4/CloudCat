@@ -66,12 +66,15 @@ var sql = {
                         {
                             // Иначе создаем новую запись admina
                             // TODO: генерация токена (по любому алгоритму)
-                            db.run(`INSERT INTO users ('login', 'password', 'token', 'fname', 'lname', 'isAdmin', 'enterprise') 
-                            VALUES ('${login}', '${password}', '000000', '${fname}', '${lname}', '1', '${enterprise}')`);
-                            
-                            // TODO: Надо сделать проверочный SELECT по этому пользователю и вернуть токен и логин с БД
-                            let response = new Objects.Response(200, "Insert admin DATA OK", new Objects.SqlRegisterAdminData(login, '000000'));
-                            resolve(response);
+                            require('crypto').randomBytes(12, function(err, buffer) {
+                                var token = buffer.toString('hex');
+                                db.run(`INSERT INTO users ('login', 'password', 'token', 'fname', 'lname', 'isAdmin', 'enterprise') 
+                                VALUES ('${login}', '${password}', '${token}', '${fname}', '${lname}', '1', '${enterprise}')`);
+                                
+                                // TODO: Надо сделать проверочный SELECT по этому пользователю и вернуть токен и логин с БД
+                                let response = new Objects.Response(200, "Insert admin DATA OK", new Objects.SqlRegisterAdminData(login, token));
+                                resolve(response);
+                            })
                         }
                     })
                 });
@@ -106,6 +109,142 @@ var sql = {
                             
                             // TODO: Надо сделать проверочный SELECT по этому пользователю и вернуть пароль и логин с БД
                             let response = new Objects.Response(200, "Insert user DATA OK", new Objects.SqlRegisterUserData(login, login));
+                            resolve(response);
+                        }
+                    })
+                });
+        })
+    },
+
+    getCourses: function(token){
+        return new Promise((resolve, reject) => {
+            sql.init()
+                .catch(err => reject(err))
+                .then(initResponse => {
+                    let db = initResponse.data.db;
+                    db.get(`SELECT * FROM users WHERE token = '${token}' LIMIT 1`, [], function(err, row){
+                        if(row)
+                        {
+                            db.all(`SELECT * FROM courses WHERE enterprise = '${row.enterprise}'`, [], function(err, rowss){
+                                console.log(JSON.stringify(rowss));
+                                let response = new Objects.Response(200, "Courses DATA", new Objects.SqlCoursesData(JSON.stringify(rowss)));
+                                resolve(response);
+                            });
+                        }
+                        else
+                        {
+                            // Отдаем ошибку
+                            let response = new Objects.Error2(302, `Курсы отстутвуют`);
+
+                            // TODO FIX: надо бы reject отдавать, но почемуто catch в api обрабатывается и продожает идти дальше поцепочке!
+                            // TODO FIX: Пока так, в api делаем проверку на response.status
+                            resolve(response);
+                        }
+                    })
+                });
+        })
+    },
+
+    getCourse: function(id, token){
+        return new Promise((resolve, reject) => {
+            sql.init()
+                .catch(err => reject(err))
+                .then(initResponse => {
+                    let db = initResponse.data.db;
+                    db.get(`SELECT * FROM users WHERE token = '${token}' LIMIT 1`, [], function(err, row){
+                        console.log("USER:" + JSON.stringify(row));
+                        if(row)
+                        {
+                            db.get(`SELECT * FROM courses WHERE id = '${id}'`, [], function(err, rowCourse){
+                                console.log("COURSE:" + JSON.stringify(rowCourse));
+                                // Доступ возможен если 
+                                if(row.enterprise == rowCourse.enterprise)
+                                {
+                                    let response = new Objects.Response(200, "Courses DATA", new Objects.SqlCourseData(rowCourse));
+                                    resolve(response);
+                                }
+                                // Иначе нет доступа
+                                else
+                                {
+                                    let response = new Objects.Error2(403, "Ошибка доступа к курсам");
+                                    resolve(response);
+                                }
+                            });
+                        }
+                        else
+                        {
+                            // Отдаем ошибку
+                            let response = new Objects.Error2(302, `Курсы отстутвуют`);
+
+                            // TODO FIX: надо бы reject отдавать, но почемуто catch в api обрабатывается и продожает идти дальше поцепочке!
+                            // TODO FIX: Пока так, в api делаем проверку на response.status
+                            resolve(response);
+                        }
+                    })
+                });
+        })
+    },
+
+    createCourse: function(course, token){
+        return new Promise((resolve, reject) => {
+            sql.init()
+                .catch(err => reject(err))
+                .then(initResponse => {
+                    let db = initResponse.data.db;
+                    db.get(`SELECT * FROM users WHERE token = '${token}' LIMIT 1`, [], function(err, row){
+                        console.log("USER:" + JSON.stringify(row));
+                        if(row)
+                        {
+                            course = JSON.parse(course);
+                            console.log("PARSED:course");
+                            console.log(course);
+                            if(row.enterprise === course.enterprise){
+                                console.log("ENTERPRISE OK" + course.name + row.login);
+                                db.run(`INSERT INTO courses ('name', 'content', 'enterprise', 'author')
+                                VALUES ('${course.name}', '${course.content}', '${course.enterprise}', '${row.login}')`, [], function(err){
+                                    console.log("Courses inside");
+                                    // Ошибки нет
+                                    if(err === null){
+                                        // Костыль
+                                        var response = new Objects.Response(200, "Courses inserted data", new Objects.Error2(200, "insert OK"));
+                                    }
+                                    // Иначе нет доступа
+                                    else
+                                    {
+                                        var response = new Objects.Error2(403, "Ошибка при создании записи");
+                                    }
+                                    console.log("COURSE insert sql:" + JSON.stringify(response));
+                                    resolve(response);
+                                });
+                            }
+                        }
+                        else
+                        {
+                            // Отдаем ошибку
+                            let response = new Objects.Error2(302, `Токен не доступен в базе`);
+
+                            // TODO FIX: надо бы reject отдавать, но почемуто catch в api обрабатывается и продожает идти дальше поцепочке!
+                            // TODO FIX: Пока так, в api делаем проверку на response.status
+                            resolve(response);
+                        }
+                    })
+                });
+        })
+    },
+
+    userInfo: function(token){
+        return new Promise((resolve, reject) => {
+            sql.init()
+                .catch(err => reject(err))
+                .then(initResponse => {
+                    initResponse.data.db.get(`SELECT * FROM users WHERE token = '${token}'`, [], function(err, row){
+                        if(row)
+                        {
+                            let response = new Objects.Response(200, "Userifno DATA OK", new Objects.SqlUserInfo(row.login, row.fname, row.lname, row.enterprise, row.isAdmin));
+                            resolve(response);
+                        }
+                        else{
+                            let response = new Objects.Error2(403, `Неверный токен!`);
                             resolve(response);
                         }
                     })

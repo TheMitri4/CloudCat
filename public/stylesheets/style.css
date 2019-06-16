@@ -8,10 +8,15 @@ a {
 	color: #00B7FF;
 }
 
+/* Шапка */
+
 .header{
 	height: 65px;
 	background-color: #fff;
+	margin-bottom: 22px;
 }
+
+/* Блок входа */
 
 .login-block{
 	display: flex;
@@ -21,6 +26,7 @@ a {
 	background-color: #fff;
 	margin: 0 auto;
 	margin-top: 152px;
+	margin-bottom: 100px;
 	padding: 80px 48px 25px 48px;
 	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.05);
 	border-radius: 10px;
@@ -84,6 +90,182 @@ a {
 	margin: 0 auto;
 }
 
+.login-block__submit-button--register{
+	margin-top: 118px;
+	margin-bottom: 0;
+}
+
+/* Блок регистрации админа */
+
+.login-block__input--registration{
+	margin-bottom: 32px;
+}
+
+/* Попап регистриации сотрудника */
+
+.login-block--register-popup__wrapper{
+	position: fixed;
+	width: 100%;
+	height: 100vh;
+	top: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+.login-block--register-popup{
+	padding-top: 55px;
+	margin: 0;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.login-block__title--register-popup{
+	margin-bottom: 52px;
+}
+
+.login-block__submit-button--register-popup{
+	margin: 0 auto;
+}
+
+/* Личный кабинет */
+
+.lk{
+	display: flex;
+	justify-content: center;
+}
+
+.lk__left{
+	background-color: #fff;
+	width: 875px;
+	margin-right: 15px;
+	border-radius: 10px 0 0 10px;
+}
+
+.lk__right{
+	width: 430px;
+	display: flex;
+	flex-direction: column;
+}
+
+/* Блок доступных курсов */
+
+.courses{
+	padding: 50px 37px;
+}
+
+.courses__title{
+	font-size: 30px;
+	color: #1791EA;
+	text-align: center;
+	margin: 0;
+	margin-bottom: 45px;
+}
+
+.course{
+	display: flex;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+	border-radius: 5px;
+	padding: 17px 13px;
+	margin-bottom: 30px;
+}
+
+.course__image{
+	width: 165px;
+	height: 107px;
+	flex-shrink: 0;
+	margin-right: 15px;
+}
+
+.course__title{
+	font-size: 18px;
+	line-height: 15px;
+	font-weight: bold;
+	color: #1791EA;
+	margin: 0;
+	margin-bottom: 15px;
+}
+
+.course__description{
+	font-size: 13px;
+	line-height: 17px;
+	margin: 0;
+}
+
+/* Блок информации о пользователе */
+
+.user-info{
+	background-color: #fff;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-top: 50px;
+	padding-bottom: 100px;
+	border-radius: 0 10px 0 0;
+	margin-bottom: 15px;
+}
+
+.user-info__name{
+	max-width: 300px;
+	font-size: 30px;
+	font-weight: bold;
+	text-align: center;
+	color: #49ABF2;
+	margin: 0;
+	margin-bottom: 32px;
+}
+
+.user-info__info-description{
+	font-size: 18px;
+	text-align: center;
+	color: #999897;
+	margin: 0;
+	margin-bottom: 2px;
+}
+
+.user-info__info-title{
+	font-size: 24px;
+	font-weight: bold;
+	text-align: center;
+	color: #49ABF2;
+	margin: 0;
+}
+
+.user-info__nickname{
+	margin-bottom: 21px;
+}
+
+/* Кнопка регистрации нового пользователя */
+
+.lk-button{
+	border: none;
+	font-size: 18px;
+	font-weight: bold;
+	background-color: #fff;
+	padding: 20px;
+}
+
+.lk-button:focus{
+	outline: none;
+}
+
+.lk-button--new-user{
+	margin-bottom: 15px;
+	color: #B8E66D;
+}
+
+.lk-button--logout{
+	color: #EF4949;
+	border-radius: 0 0 10px 0;
+}
+
+/* Вспомогательный класс для скрытия элементов */
+
+.hidden{
+	display: none;
+}
 
 /* cource page */
 
@@ -140,4 +322,3 @@ a {
   .course-menu__lesson-tab:last-of-type {
 	border-bottom-right-radius: 10px;
   }
-  
