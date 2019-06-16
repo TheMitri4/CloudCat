@@ -35,4 +35,11 @@ router.get('/main-page', function(req, res, next) {
 	res.render('main-page', { login: 'Express' });
 });
 
+// Получаем страницу купса
+router.get('/course', function(req, res, next) {
+	res.render('course', {
+							presentation: 'https://nsportal.ru/sites/default/files/2015/12/01/zherihova_yulya.pptx'
+						});
+});
+
 module.exports = router;
