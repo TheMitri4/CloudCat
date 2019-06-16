@@ -140,4 +140,11 @@ router.get('/lk', function(req, res, next) {
 	// res.render('lk', { courses: [{ name: 'Глава 6', content: 'Привет, меня зовут контент, и я тут не просто так!'}] } );
 });
 
+// Получаем страницу купса
+router.get('/course', function(req, res, next) {
+	res.render('course', {
+							presentation: 'https://nsportal.ru/sites/default/files/2015/12/01/zherihova_yulya.pptx'
+						});
+});
+
 module.exports = router;
