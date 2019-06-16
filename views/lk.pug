@@ -1,0 +1,21 @@
+extends layout
+block content
+	div(class="main")
+		div(class="main__left")
+			div(class="courses")
+				h2(class="courses__title") Доступные курсы
+				each course in courses
+					div(class="course")
+						img(src="/images/courses/image.png", alt="Картинка курса" width="165" height="107" class="course__image")
+						div(class="course__info")
+							h3(class="course__title")=course['name']
+							p(class="course__description")=course['content']
+		div(class="main__right")
+			div(class="user-info")
+				h2(class="user-info__name") Горниц Инесса Игнатьевна
+				p(class="user-info__nickname-title user-info__info-description") Имя пользователя
+				h3(class="user-info__nickname user-info__info-title") InessaIgnatievna
+				p(class="user-info__workplace-title user-info__info-description") Место работы
+				h3(class="user-info__workplace user-info__info-title") ОАО "ПредприятиеНэйм"
+			button(class="lk-button lk-button--new-user") Зарегистрировать пользователя
+			button(class="lk-button lk-button--logout") Выход
